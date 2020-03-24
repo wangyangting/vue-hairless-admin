@@ -4,7 +4,12 @@ import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
+/**
+ * constantRoutes
+ * a base page that does not have permission requirements
+ * all roles can be accessed
+ */
+export const constantRoutes = [
   {
     path: "/",
     name: "Home",
@@ -16,8 +21,12 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "@/views/About.vue")
+    component: () => import(/* webpackChunkName: "about" */ "@/views/About.vue")
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("@/views/login/")
   },
   {
     path: "/401",
@@ -31,10 +40,46 @@ const routes = [
   }
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
-});
+export const asyncRoutes = [
+  {
+    path: "/example",
+    // component: Layout,
+    redirect: "/example/dashboard",
+    name: "Example",
+    meta: {
+      title: "Example",
+      icon: "example"
+    },
+    children: [
+      {
+        path: "dashboard",
+        component: () => import("@/views/example/dashboard"),
+        name: "ExampleDashboard",
+        meta: { title: "Example Dashboard", icon: "list" }
+      },
+      {
+        path: "list",
+        component: () => import("@/views/example/list"),
+        name: "ExampleList",
+        meta: { title: "Example List", icon: "list" }
+      }
+    ]
+  }
+];
+
+const createRouter = () =>
+  new VueRouter({
+    mode: "history", // require service support
+    base: process.env.BASE_URL,
+    routes: constantRoutes
+  });
+
+const router = createRouter();
+
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter();
+  router.matcher = newRouter.matcher; // reset router
+}
 
 export default router;
