@@ -1,8 +1,10 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
+
+import Layout from '@/layout';
 
 /**
  * constantRoutes
@@ -11,57 +13,57 @@ Vue.use(VueRouter);
  */
 export const constantRoutes = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
+    path: '/about',
+    name: 'About',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "@/views/About.vue")
+    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
   },
   {
-    path: "/login",
-    name: "Login",
-    component: () => import("@/views/login/")
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/')
   },
   {
-    path: "/401",
-    name: "401",
-    component: () => import("@/views/error-page/401.vue")
+    path: '/401',
+    name: '401',
+    component: () => import('@/views/error-page/401.vue')
   },
   {
-    path: "/404",
-    name: "404",
-    component: () => import("@/views/error-page/404.vue")
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/error-page/404.vue')
   }
 ];
 
 export const asyncRoutes = [
   {
-    path: "/example",
-    // component: Layout,
-    redirect: "/example/dashboard",
-    name: "Example",
+    path: '/example',
+    name: 'Example',
+    redirect: '/example/dashboard',
+    component: Layout,
     meta: {
-      title: "Example",
-      icon: "example"
+      title: 'Example',
+      icon: 'example'
     },
     children: [
       {
-        path: "dashboard",
-        component: () => import("@/views/example/dashboard"),
-        name: "ExampleDashboard",
-        meta: { title: "Example Dashboard", icon: "list" }
+        path: 'dashboard',
+        name: 'ExampleDashboard',
+        component: () => import('@/views/example/dashboard'),
+        meta: { title: 'Example Dashboard', icon: 'list' }
       },
       {
-        path: "list",
-        component: () => import("@/views/example/list"),
-        name: "ExampleList",
-        meta: { title: "Example List", icon: "list" }
+        path: 'list',
+        name: 'ExampleList',
+        component: () => import('@/views/example/list'),
+        meta: { title: 'Example List', icon: 'list' }
       }
     ]
   }
@@ -69,7 +71,7 @@ export const asyncRoutes = [
 
 const createRouter = () =>
   new VueRouter({
-    mode: "history", // require service support
+    mode: 'history', // require service support
     base: process.env.BASE_URL,
     routes: constantRoutes
   });
