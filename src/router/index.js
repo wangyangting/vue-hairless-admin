@@ -4,7 +4,7 @@ import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
-import Layout from '@/layout';
+import BlankLayout from '@/layout/BlankLayout';
 
 /**
  * constantRoutes
@@ -47,7 +47,7 @@ export const asyncRoutes = [
     path: '/example',
     name: 'Example',
     redirect: '/example/dashboard',
-    component: Layout,
+    component: BlankLayout,
     meta: {
       title: 'Example',
       icon: 'example'
