@@ -6,6 +6,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
+import AntDesign from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
 
 import './permission'; // permission control
 
@@ -18,6 +20,8 @@ Vue.use(ViewUI, {
   size: 'small',
   capture: true
 });
+
+Vue.use(AntDesign);
 
 Vue.config.productionTip = false;
 
